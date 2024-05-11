@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+
+touch ~/bookmarks
+BOOKMARK="$(xclip -o)" #xclip -o without any argument will give all the value selected to BOOKMARK.
+FILE="~/bookmarks"
+
+if grep -q "^$BOOKMARK$" ~/bookmarks; then
+  dunstify "Naah!" "Bookmark already exist."
+   
+else
+    echo "$BOOKMARK" >> ~/bookmarks 
+  dunstify "Hey" "Bookmark added."
+
+fi
+
+
+

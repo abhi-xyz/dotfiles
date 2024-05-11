@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+#path="/mnt/hardDisk/dotfiles/.bin"
+#filename=$(basename "$path")
+
+#echo "$filename"
+#!/bin/bash
+
+# Define directories to search
+DOTFILES_DIR="$HOME/dotfiles"
+WALLPAPERS_DIR="$HOME/.wallpapers"
+
+# Search for files in dotfiles and wallpapers directories
+files=$(find "$DOTFILES_DIR" "$WALLPAPERS_DIR" -type f)
+
+# Display rofi menu with found files
+selected=$(echo "$files" | rofi -dmenu -i -p "Select File")
+
+# Open the selected file using xdg-open
+if [ -n "$selected" ]; then
+    git add "$selected" && git commit -m "modified $selected a bit" && git push
+fi
+

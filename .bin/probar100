@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+
+int_value=0
+
+while [ $int_value -le 100 ]
+do
+    notify-send -h int:value:$int_value -t 2000 "Working on it..."
+    ((int_value++))
+    sleep 0.02
+done
+

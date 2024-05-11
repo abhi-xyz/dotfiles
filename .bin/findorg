@@ -1,0 +1,51 @@
+
+#!/usr/bin/env bash
+# This line specifies the interpreter to use for executing this script, which is bash.
+######################################################################
+
+# Define directories
+search_dir="$HOME/Documents"
+# This line defines a variable 'search_dir' and sets it to the path:
+# "$HOME/Documents", which is the directory to search for existing .org files.
+
+capture_dir="$HOME/Documents/capture"
+# This line defines a variable 'capture_dir' and sets it to the path:
+# "$HOME/Documents/capture", which is the directory to save new .org files.
+
+theme_dir="$HOME/git/rofi/files/launchers/type-4"
+theme='style-10'
+# This line defines the theme directory and the theme to use with rofi.
+
+# Check if emacsclient is available, use it if available, otherwise fall back to emacs
+if command -v emacsclient &> /dev/null; then
+    emacs_cmd="emacsclient -c"
+else
+    emacs_cmd="emacs"
+fi
+
+# Find existing .org files in search_dir
+existing_files=$(find "$search_dir" -name "*.org" -exec basename {} \;)
+
+# Prompt user with Rofi to choose an existing .org file or create a new one
+chosen_file=$(echo -e "$existing_files\n[ Create New ]" | rofi -dmenu -p "Choose or Create .org file:" -theme "$theme_dir/$theme.rasi")
+
+# If "Create New" is chosen, prompt for a new filename
+if [[ "$chosen_file" == "[ Create New ]" ]]; then
+    new_file=$(echo "" | rofi -dmenu -p "Enter new .org filename:" -theme "$theme_dir/$theme.rasi")
+    if [[ -z "$new_file" ]]; then
+        exit 0  # Exit if user cancels
+    fi
+    chosen_file="$new_file"
+fi
+
+# Full path of the chosen file
+file_path="$search_dir/$chosen_file"
+
+# If the chosen file doesn't exist, create it in the capture directory
+if [[ ! -f "$file_path" ]]; then
+    touch "$capture_dir/$chosen_file"
+    file_path="$capture_dir/$chosen_file"
+fi
+
+# Open the chosen or newly created file with emacs
+$emacs_cmd "$file_path"

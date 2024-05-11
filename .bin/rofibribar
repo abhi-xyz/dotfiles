@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+options=$(seq 0 +10 100)
+
+selected_option=$(echo -e "$options" | rofi -dmenu -p "Brightness level:" -theme ~/rofi/files/launchers/type-1/vol_theme.rasi)
+
+ddcutil setvcp 10 $selected_option

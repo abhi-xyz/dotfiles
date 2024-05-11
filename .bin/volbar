@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+case $1 in
+  "d")
+    pulsemixer --change-volume -5
+    ;;
+  "i")
+pulsemixer --change-volume +5
+;;
+esac
+
+
+int_value=$(pulsemixer --get-volume | awk '{print $1}') >> /dev/null
+
+    notify-send -h int:value:$int_value -t 2000 "Volume" 
+    ((int_value++))
+    sleep 0.02
+
+
+# dunstctl close
+# notify-send -e -h int:value:$VOL -t 1000 "Volume" "Volume: $VOL"
+
+
+

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+FILE="$1"
+
+touch $FILE && chmod +x $FILE && echo "#!/usr/bin/env bash
+
+" >> $FILE && nvim $FILE

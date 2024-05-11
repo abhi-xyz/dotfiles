@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+
+PKG="$1" #xclip -o without any argument will give all the value selected to BOOKMARK.
+
+if grep -q "^$PKG$" ~/nixpkg; then
+  dunstify "Naah!" "Package already exist."
+else
+  sudo pacman -S --needed --noconfirm $PKG && echo "$PKG" >> ~/nixpkg 
+  dunstify "Hey abhi" "Package name ""$PKG"" added to nixpkgs."
+fi
+
+
+

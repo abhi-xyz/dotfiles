@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Check if simple-mtpfs is installed
+if ! command -v simple-mtpfs &> /dev/null; then
+    echo "Error: simple-mtpfs is not installed. Please install it first."
+    dunstify "Error" "simple-mtpfs is not installed. Please install it first."
+    exit 1
+fi
+
+# Function to mount the Android device
+mount_device() {
+    # Create directory if it doesn't exist
+    mkdir -p ~/devices
+    
+    # Get a list of available devices with their numbers
+    devices=$(simple-mtpfs -l | awk '{print NR, $0}')
+    
+    # Prompt user to select a device using Rofi with the specified theme
+    selected_device=$(echo "$devices" | rofi -dmenu -p "Select device to mount:" -theme ~/.config/rofi/iris/simple_sq.rasi | awk '{print $2}')
+    
+    # Mount the selected Android device
+    echo "Mounting Android device..."
+    dunstify "Andriod Mounter" "Mounting Android device..."
+    simple-mtpfs --device $selected_device ~/devices
+    
+    # Check if mount was successful
+    if [ $? -eq 0 ]; then
+        echo "Android device mounted successfully."
+        dunstify "Android Mounter" "Android device mounted successfully."
+    else
+        echo "Error: Failed to mount Android device."
+        dunstify "Android Mounter" "Error: Failed to mount Android device."
+    fi
+}
+
+# Function to unmount the Android device
+umount_device() {
+    # Unmount the Android device
+    echo "Unmounting Android device..."
+    dunstify "Android Mounter" "Unmounting Android device..."
+    fusermount -u ~/devices
+    
+    # Check if unmount was successful
+    if [ $? -eq 0 ]; then
+        echo "Android device unmounted successfully."
+        dunstify "Android Mounter" "Android device unmounted successfully."
+    else
+        echo "Error: Failed to unmount Android device."
+        dunstify "Android Mounter" "Error: Failed to unmount Android device."
+    fi
+}
+
+# Ask user whether to mount or unmount the device using Rofi with the specified theme
+option=$(echo -e "Mount\nUnmount" | rofi -dmenu -p "Select an option:" -theme ~/.config/rofi/iris/simple_sq.rasi )
+
+# Perform the selected action
+case $option in
+    "Mount")
+        mount_device
+        ;;
+    "Unmount")
+        umount_device
+        ;;
+    *)
+        echo "Invalid option."
+        dunstify "Android Mounter" "Invalid option."
+        ;;
+esac

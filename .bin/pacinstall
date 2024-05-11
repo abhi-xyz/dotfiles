@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+PKG="$1"
+
+sudo pacman -S --needed --noconfirm $(cat $PKG)

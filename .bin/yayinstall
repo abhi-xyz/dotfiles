@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+PKG="$1"
+
+paru -S --needed $(cat $PKG)

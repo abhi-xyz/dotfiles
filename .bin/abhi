@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+
+OPTION=$1
+PKG=$2
+
+blackarch() { echo "Adding BlackArch Repository to the sysyem..." &&
+curl -O https://blackarch.org/strap.sh &&
+echo 26849980b35a42e6e192c6d9ed8c46f0d6d06047 strap.sh | sha1sum -c &&
+chmod +x strap.sh &&
+sudo ./strap.sh &&
+sudo pacman -Syu &&
+echo "To list all of the available tools,
+
+run sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u
+
+To install a category of tools,
+
+Run sudo pacman -S blackarch-<category>
+
+To see the blackarch categories,
+
+Run sudo pacman -Sg | grep blackarch
+
+To search for a specific package,
+
+Run pacman -Ss <package_name>
+
+Note - it maybe be necessary to overwrite certain packages when installing blackarch tools. If
+you experience "failed to commit transaction" errors, use the --needed and --overwrite switches
+
+For example:
+
+sudo pacman -Syyu --needed --overwrite='*' <wanted-package>" || echo "An error occured" ;}
+
+nvchad() { echo "Cloning NvChad..." &&
+git clone https://github.com/NvChad/starter ~/.config/nvim && nvim ;}
+
+
+touch pde.txt
+pacmande() { sudo pacman -S --needed $PKG && echo "$PKG" >> pde.txt ;}
+
+touch yde.txt
+yayde() { yay -S --needed $PKG && echo "$PKG" >> yde.txt ;}
+
+touch p.txt
+pacman() { sudo pacman -S --needed $PKG && echo "$PKG" >> p.txt ;}
+
+touch y.txt
+yaynormal() { yay -S --needed $PKG && echo "$PKG" >> y.txt ;}
+
+touch paru.txt
+parunormal() { paru -S --needed $PKG && echo "$PKG" >> paru.txt ;}
+
+yayinstall() { echo "Installing yay" && git clone https://aur.archlinux.org/yay.git && echo "Entering into yay directory" && cd yay && echo "making PKG..." && makepkg -si && cd .. && rm -rf yay && echo "Installed yay sucsessfully" || echo "Failed to install yay" ;}
+
+
+paruinstall() {
+  git clone https://aur.archlinux.org/paru.git 
+  cd paru
+  makepkg -si 
+  cd ..
+  rm -rf paru
+}
+
+gitsshkey() {
+ssh-keygen -t ed25519 -C "abhinandhs@hotmail.com"
+}
+
+case "$1" in
+  gitsshkey) gitsshkey ;;
+  paruinstall) paruinstall ;;
+  clonemyrepo) clonemyrepo ;;
+  clonemywallprepo) clonemywallprepo ;;
+  blackarch) blackarch ;;
+  nvchad) nvchad ;;
+  pde) pacmande ;;
+  yde) yayde ;;
+  yayinstall) yayinstall ;;
+  p) pacman ;;
+  ya) yaynormal ;;
+  pr) parunormal ;;
+esac
+
+

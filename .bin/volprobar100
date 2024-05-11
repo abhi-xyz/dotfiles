@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+
+pulsemixer --change-volume +5
+
+int_value=$(pulsemixer --get-volume | awk '{print $1}') >> /dev/null
+
+# while [ $int_value -le 100 ]
+#do
+    notify-send -h int:value:$int_value -t 2000 "Working on it..."
+    ((int_value++))
+    sleep 0.02
+#done
+
