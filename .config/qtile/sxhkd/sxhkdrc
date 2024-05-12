@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+### WM INDEPENDENT KEYBINDINGS ###
+
+# make sxhkd reload its configuration files:
+
+super + Escape
+ pkill -USR1 -x sxhkd
+
+super + a 
+  nemo
+
+super + b 
+  librewolf
+
+super + c 
+ clipmenu 
+
+# super + d ~/qtile
+#    rofi launcher
+
+super + e 
+ emacscilent -c
+
+super + f 
+  firefox
+  
+# super + g ?
+#
+# super + h ~/qtile
+#
+# super + i ?
+#
+# super + j ~/qtile
+# super + k ~/qtile
+# super + l ~/qtile
+
+super + n 
+  alacritty -e nvim
+
+# super + r ~/qtile dmenu
+# super + t ~/qtile toggle-fullscreen
+
+super + v 
+  vivaldi
+
+ctrl + n
+ nemo
+
+alt + F1 
+ nemo
+
+F1
+  youtube-music
+
+F2
+  ~/.bin/volbar d
+ # pulsemixer --change-volume -5
+
+F3
+  ~/.bin/volbar i
+ # pulsemixer --change-volume +5
+
+F4
+ pulsemixer --toggle-mute
+
+F5
+ playerctl stop
+
+F6
+  playerctl previous
+
+F7 
+  playerctl play-pause
+
+F8
+  playerctl next
+
+F9
+ ~/irisyt 
+
+F10 
+ ~/.config/qtile/rofi/powermenus/powermenu.sh
+
+F11
+  betterlockscreen -l --blur
+
+F12
+ ~/.config/qtile/rofi/settings/rofisettings
+
+ctrl + F1 
+ ~/.bin/rofibribar
+
+ctrl + F2
+ ddcutil setvcp 10 - 10 
+
+ctrl + F3
+ ddcutil setvcp 10 + 10 
+
+Print
+ flameshot full --clipboard --path ~/Pictures/Screenshots/scrn_shot_
+
+ctrl + Print
+ flameshot gui --region all --clipboard --path ~/Pictures/Screenshots/scrn_shot_
+
+

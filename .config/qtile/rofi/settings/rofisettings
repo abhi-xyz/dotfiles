@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# Device ID's and names may be found using "kdeconnect-cli -l"
+kde_connected_device="abhi" 
+
+# Path to the custom theme file
+theme_path="$HOME/.config/qtile/rofi/settings/piconleft.rasi"
+
+# Define options for the settings menu
+options="Kde connect\nDisplay\nVolume\nNetwork\nSound settings\nFirewall\nKeyboard\nDisc\nNotifications\nDate & Time\nPower\nRofi settings"
+
+# Get user selection using Rofi with the custom theme
+selected_option=$(echo -e "$options" | rofi -dmenu -i -p "Settings" -theme "$theme_path")
+
+# Function to open applications based on user selection
+open_application() {
+    case $1 in
+        "Network")
+            # Open network settings
+            nm-connection-editor
+            ;;
+        "Kde connect")
+          kde_options="Sent clipboard\nKde connect settings"
+selected_kde_option=$(echo -e "$kde_options" | rofi -dmenu -i -p "Kde connect" -theme "$theme_path")
+          case $1 in
+            "Sent clipboard")
+              kdeconnect-cli -n $kde_connected_device --send-clipboard 
+              notify-send "IRIS SETTINGS" "clipboard sended to $kde_connected_device"
+              ;;
+            "View SMS from Abhi's Phone")
+              kdeconnect-sms
+            ;;
+            "Open app")
+             kdeconnect-app
+            ;;
+            "Kde connect settings")
+              kdeconnect-settings
+            ;;
+            2|3) echo 2 or 3
+            ;;
+            *) notify-send "IRIS SETTINGS" "Fallbacked to default"
+            ;;
+          esac
+          ;; 
+          "Display")
+            gddccontrol
+            ;;
+          "Sound settings")
+            alacritty -e pulsemixer
+            ;;
+        "Sound")
+            # Open sound settings
+            alacritty -e pulsemixer
+            ;;
+        "Keyboard")
+            # Open keyboard settings
+            alacritty -e nvim ~/.config/qtile/sxhkd/sxhkdrc
+            ;;
+        "Date & Time")
+            # Open date and time settings
+            # gnome-control-center datetime
+            ;;
+        "Power")
+            # Open power settings
+            # gnome-control-center power
+            ;;
+        "Rofi settings")
+          alacritty -e nvim ~/.config/qtile/rofi/settings/rofisettings
+          ;;
+        *)
+            echo "Invalid option"
+            ;;
+    esac
+}
+
+# Check if a valid option was selected
+if [ -n "$selected_option" ]; then
+    open_application "$selected_option"
+fi
+
+
