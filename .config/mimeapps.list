@@ -1,0 +1,17 @@
+[Default Applications]
+application/x-shellscript=userapp-alacritty -e nvim-73MKN2.desktop
+application/x-zerosize=userapp-alacritty -e nvim-73MKN2.desktop
+image/png=org.kde.gwenview.desktop
+application/vnd.sqlite3=userapp-alacritty -e nvim-73MKN2.desktop
+text/plain=userapp-alacritty-YUPON2.desktop
+application/x-trash=userapp-alacritty -e nvim-73MKN2.desktop
+
+[Added Associations]
+application/x-shellscript=Alacritty.desktop;userapp-alacritty -e nvim-73MKN2.desktop;
+text/x-python=userapp-alacritty -e nvim-73MKN2.desktop;
+text/plain=userapp-alacritty -e nvim-73MKN2.desktop;nvim.desktop;userapp-alacritty-UJMKN2.desktop;userapp-alacritty-YUPON2.desktop;
+application/x-zerosize=userapp-alacritty -e nvim-73MKN2.desktop;
+text/x-csrc=userapp-alacritty -e nvim-73MKN2.desktop;
+image/png=org.kde.gwenview.desktop;
+application/vnd.sqlite3=userapp-alacritty -e nvim-73MKN2.desktop;
+application/x-trash=userapp-alacritty -e nvim-73MKN2.desktop;
