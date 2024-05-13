@@ -3,6 +3,6 @@
 
 options=$(seq 1 +1 153)
 
-selected_option=$(echo -e "$options" | rofi -dmenu -p "Volume level:" -theme ~/rofi/files/launchers/type-1/vol_theme.rasi)
+selected_option=$(echo -e "$options" | rofi -dmenu -p "Volume level:" -theme ~/.bin/rofi/vol_theme.rasi)
 
-pulsemixer --set-volume $selected_option
+pulsemixer --set-volume "$selected_option" >> /dev/null

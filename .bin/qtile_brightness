@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# This script uses ddcutil to get the current brightness level of a display
+
+# Check if ddcutil is installed
+if ! command -v ddcutil &> /dev/null; then
+    echo "Error: ddcutil is not installed. Please install it using your package manager."
+    exit 1
+fi
+
+
+brightness=$(ddcutil getvcp 10 2>&1 | grep -oP '(?<=current value = )\s*\d+' | tr -d ' ')
+qtile_brightness_get() { echo "$brightness" ;}
+#qtile_brightness_get() { ddcutil getvcp 10 + 10 && echo "Increasing Brightness..." ;}
+qtile_brightness_inc() { ddcutil setvcp 10 + 10 && dunstify "Qtile_brightness" "Increasing Brightness..." ;}
+qtile_brightness_dec() { dunstify "scroll check" && ddcutil setvcp 10 - 10 && echo "decreasing Brightness..." ;}
+# Get the current brightness level
+
+
+case "$1" in
+  g) qtile_brightness_get ;;
+  i) qtile_brightness_inc ;;
+  d) qtile_brightness_dec ;;
+esac
+# Check if the brightness level was retrieved successfully
+if [ -z "$brightness" ]; then
+    echo "script failed"
+   # echo "Debugging information:"
+   # ddcutil getvcp 10
+    exit 1
+fi
+
+

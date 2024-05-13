@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+#
+# https://youtu.be/djNW5-tnbfU?si=2Q-m26pFdQ9milp3 >> Tu mil gaya from Srikanth movie
+#
+# Check if simple-mtpfs is installed
+  if ! command -v yt-dlp &> /dev/null; then 
+    echo "Error: simple-mtpfs is not installed. Please install it first." 
+    dunstify "Error" "simple-mtpfs is not installed. Please install it first."
+    exit 1 
+  fi
+
+
+#CLIPBOARD_ITEM
+LINK="$(xclip -o)"
+dunstify "$LINK"
+
+touch ytlog.txt
+
+OPTIONS="Audio\nVideo"
+SELECTED_OPTION=$(echo -e "$OPTIONS" | rofi -dmenu -i -p "Select type: " -theme ~/.bin/rofi/irisyt.rasi )
+
+case $SELECTED_OPTION in 
+  "Audio")
+    URL=$LINK
+    dunstify "$LINK"
+    yt-dlp -x --audio-quality 0 -o "%(title)s.%(ext)s" -i $LINK >> ytlog.txt ;;
+
+esac
+
+
+
+# Function to display rofi menu
+#rofi_menu() {
+ #   rofi -dmenu -p "Enter YouTube URL:" -lines 0
+#}
+
+# Function to download video using yt-dlp
+#download_video() {
+ #   url="$CLIPBOARD_ITEM"
+  #  yt-dlp "$url"
+#}
+
+# Main function
+#main() {
+ #   # Get YouTube URL from rofi
+  #  url=$(rofi_menu)
+
+    # Check if URL is not empty
+   # if [ -n "$url" ]; then
+    #    download_video "$url"
+    #fi
+#}
+
+#main
+
+
