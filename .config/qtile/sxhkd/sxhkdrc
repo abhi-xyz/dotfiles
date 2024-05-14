@@ -77,7 +77,7 @@ F8
   playerctl next
 
 F9
- ~/irisyt 
+ ~/.bin/irisyt 
 
 F10 
  ~/.config/qtile/rofi/powermenus/powermenu.sh
@@ -98,9 +98,9 @@ ctrl + F3
  ddcutil setvcp 10 + 10 
 
 Print
- flameshot full --clipboard --path ~/Pictures/Screenshots/scrn_shot_
+ flameshot full --clipboard --path ~/Pictures/screenshots/scrn_shot_
 
 ctrl + Print
- flameshot gui --region all --clipboard --path ~/Pictures/Screenshots/scrn_shot_
+ flameshot gui --region all --clipboard --path ~/Pictures/screenshots/scrn_shot_
 
 

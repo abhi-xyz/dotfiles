@@ -1,7 +1,8 @@
 import os
 import re
 import subprocess
-import colors  
+import colors
+from custom.fetch_brightness import get_brightness
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
@@ -34,8 +35,8 @@ brightness_widget = widget.GenPollText(func=update_brightness, update_interval=1
 # Add mouse callbacks to the brightness widget
 brightness_widget.mouse_callbacks = {
     # Left click
-    "Button1": increase_brightness,
-    "Button3": decrease_brightness
+    "Button4": increase_brightness,
+    "Button5": decrease_brightness
 }
 
 
@@ -83,7 +84,7 @@ screens = [
                     format='  WiFi :  {down:.0f}{down_suffix}'
                 ),
 
-                #  brightness_widget,
+                 brightness_widget,
                  widget.TextBox(
                     text ='󰕾',
                     fontsize = 15,

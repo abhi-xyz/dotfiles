@@ -1,6 +1,6 @@
 import options.hooks
-from core.groups import groups
-from core.bar import *
+from core.groups_maple import groups
+from core.bar_maple import *
 from core.layouts import layouts, floating_layout, floating_types
 from options.variables import mod, terminal
 from core.keys import keys, mouse

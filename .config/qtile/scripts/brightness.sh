@@ -20,4 +20,4 @@ if [ -z "$brightness" ]; then
     exit 1
 fi
 
-echo "Bri: $brightness%"
+echo "$brightness%"
